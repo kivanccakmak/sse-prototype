@@ -1,5 +1,5 @@
 # sse prototype
-local **client** (dart with dart-eventsource) / **server** (python with flask) implementation to send bidirectional server-side-event from server to client
+local **client** (dart with eventsource) / **server** (python with flask) implementation to send bidirectional server-side-event from server to client
 
 ## RUN
 
