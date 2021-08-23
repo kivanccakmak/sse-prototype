@@ -1,5 +1,5 @@
 # sse-prototype
-local **client** (dart with eventsource) / **server** (python with flask-sse) implementation to send bidirectional server-side-event from server to client.
+local **client** (dart with eventsource) / **server** (python with flask-sse) implementation to send bidirectional server-sent-event from server to client.
 
 ![](img/sse.png)
 
@@ -72,4 +72,8 @@ https://pypi.org/project/Flask-SSE/
 
 ```sh
 https://github.com/featurehub-io/featurehub/tree/main/sdks/dart/dart-eventsource
+```
+
+```sh
+https://maxhalford.github.io/blog/flask-sse-no-deps/
 ```
