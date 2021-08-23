@@ -19,6 +19,10 @@ blueprint = Blueprint(
     static_folder='static'
 )
 
+@sse.before_request
+def check_access():
+    print("bla bla")
+
 @blueprint.route('/auth_hello', methods=['GET', 'POST'])
 @jwt_required()
 def publish_auth_hello():
