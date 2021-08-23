@@ -1,8 +1,5 @@
 # sse prototype
-local **client** (dart with dart-eventsource) / **server** (python with flask) implementation to send bidirectional server-side-event from to server to client
-
-- http server: python with flask
-- client: dart
+local **client** (dart with dart-eventsource) / **server** (python with flask) implementation to send bidirectional server-side-event from server to client
 
 ## RUN
 
@@ -18,13 +15,25 @@ cd mysse
 dart run
 ```
 
-### send http request to server (he will send this payload as sse event to the client)
+### send http request to server
+(server will send this payload as an sse event through the client)
+
+#### curl
 ```sh
 #!/bin/bash
 curl -X GET \
 -H "Content-Type: application/json" \
 -d '{"foo": "bar"}' \
 http://127.0.0.1:5000/hello
+```
+
+#### python
+```sh
+url = "http://127.0.0.1:5001/hello"
+data = {"key": "value"}
+r = requests.post(url, json=data)  
+print("status_code: {}".format(r.status_code)
+print("response-text: {}".format(r.json()))
 ```
 
 ## INSTALL

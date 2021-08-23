@@ -9,7 +9,7 @@ app.config["REDIS_URL"] = "redis://localhost"
 
 app.register_blueprint(sse, url_prefix='/stream')
 
-@app.route('/hello')
+@app.route('/hello', methods=['GET', 'POST'])
 def publish_hello():
     data = request.get_json()
     sse.publish(data, type='greeting')
