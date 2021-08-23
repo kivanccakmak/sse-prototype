@@ -1,22 +1,24 @@
 # sse prototype
-local **client** (dart with eventsource) / **server** (python with flask) implementation to send bidirectional server-side-event from server to client
+local **client** (dart with eventsource) / **server** (python with flask-sse) implementation to send bidirectional server-side-event from server to client.
+
+![](img/sse.png)
 
 ## RUN
 
-### start http server
+### run http-server
 ```sh
 cd myflask
 python3 server.py
 ```
 
-### start client
+### run client
 ```sh
 cd mysse
 dart run
 ```
 
-### send http request to server
-(server will send this payload as an sse event through the client)
+### send http-request to server
+*server will send this payload as an sse event through the client*
 
 #### curl
 ```sh
@@ -39,25 +41,26 @@ print("response-text: {}".format(r.json()))
 ## INSTALL
 
 ### for server side
-install redis server
+*install redis server*
 ```sh
 sudo apt-get install redis-server
 ```
 
-install flask-sse
+*install flask and flask-sse*
 ```sh
 sudo apt-get install python3-flask
 sudo pip3 install flask-sse
 ```
 
 ### for client side
-install dart
+*install dart*
 ```sh
 https://dart.dev/get-dart
 ```
 
-install dependencies
+*install dependencies*
 ```sh
+cd mysse
 dart pub get
 ```
 
