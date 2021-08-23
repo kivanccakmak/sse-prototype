@@ -1,9 +1,7 @@
 # sse-prototype
 local **client** (dart with eventsource) / **server** (python with flask-sse) implementation to send bidirectional server-side-event from server to client.
 
-<div style="text-align:center">
 ![](img/sse.png)
-</div>
 
 ## RUN
 
