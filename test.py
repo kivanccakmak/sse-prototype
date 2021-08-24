@@ -7,8 +7,7 @@ def main():
     """
     """
     token = login()
-    print(token)
-    say_public_hello(token)
+    # say_public_hello(token)
     say_auth_hello(token)
 
 def say_public_hello(token):

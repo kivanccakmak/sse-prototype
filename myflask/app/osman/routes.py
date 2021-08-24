@@ -1,8 +1,10 @@
 #!/bin/python
+import os
 from flask import request, jsonify
 from flask_login import login_required, current_user
 
 from flask_jwt_extended import create_access_token
+from flask_jwt_extended import decode_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
@@ -20,13 +22,12 @@ blueprint = Blueprint(
 )
 
 @sse.before_request
-@jwt_required()
 def check_access():
-    channel = request.args.get("channel")
-    current_user = get_jwt_identity()
-    print(channel)
-    print("channel: {}".format(channel))
-    print("current_user: {}".format(current_user))
+    token = request.headers["token"]
+    print("token: {}".format(token))
+    msg = decode_token(token)
+    print(msg)
+    #TODO: now reject regarding to user etc!
 
 @blueprint.route('/auth_hello', methods=['GET', 'POST'])
 @jwt_required()
