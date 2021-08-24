@@ -24,11 +24,9 @@ Future<http.Response> httpJsonPostToken(String path, Map data, String token, Str
   return response;
 }
 
-Future<String> Login(username, pass, url) async {
-  var accessToken;
-  var language;
+Future<http.Response> Login(username, pass, url) async {
   var response;
-  var jsonResponse;
+
 
   Map<String, String> data = new Map();
 
@@ -37,21 +35,23 @@ Future<String> Login(username, pass, url) async {
 
   print(url);
   response = await httpJsonPost(url, data);
+  return response;
 
-  print(response.body);
 
-  jsonResponse = json.decode(response.body);
-  if (jsonResponse.containsKey('access_token')) {
-    accessToken = 'Bearer ' + jsonResponse["access_token"];
-    print(accessToken);
-	return accessToken;
-  }
 
-  return "";
 }
 
 Future<void> run() async {
-Future<String> token = await Login("kivanc", "1234", "http://127.0.0.1:5001/rest/login");
+	var accessToken;
+	var jsonResponse;
+	var response = await Login("kivanc", "1234", "http://127.0.0.1:5001/rest/login");
+	jsonResponse = json.decode(response.body);
+	if (jsonResponse.containsKey('access_token')) {
+		accessToken = 'Bearer ' + jsonResponse["access_token"];
+		print(accessToken);
+	} else {
+		return;
+	}
 
 /*EventSource eventSource =*/
       /*await EventSource.connect("http://127.0.0.1:5001/stream");*/
