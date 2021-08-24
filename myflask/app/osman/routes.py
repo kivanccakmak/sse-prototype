@@ -20,8 +20,13 @@ blueprint = Blueprint(
 )
 
 @sse.before_request
+@jwt_required()
 def check_access():
-    print("bla bla")
+    channel = request.args.get("channel")
+    current_user = get_jwt_identity()
+    print(channel)
+    print("channel: {}".format(channel))
+    print("current_user: {}".format(current_user))
 
 @blueprint.route('/auth_hello', methods=['GET', 'POST'])
 @jwt_required()
