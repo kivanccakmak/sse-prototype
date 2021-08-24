@@ -7,20 +7,20 @@ local **client** (dart with eventsource) / **server** (python with flask-sse) im
 
 ### run http-server
 ```sh
-cd myflask
+cd server/flask
 python3 run.py
 ```
 
 ### run client
 ```sh
-cd mysse
+cd client/mysse-dart
 dart run
 ```
 
 ### send http-request to server
 *server will send this payload as an sse event through the client*
 
-#### curl
+#### curl (non-authenticated)
 ```sh
 #!/bin/bash
 curl -X GET \
@@ -29,11 +29,30 @@ curl -X GET \
 http://127.0.0.1:5001/hello
 ```
 
-#### python
+#### python (non-authenticated)
 ```sh
 url = "http://127.0.0.1:5001/hello"
 data = {"key": "value"}
 r = requests.post(url, json=data)  
+print("status_code: {}".format(r.status_code)
+print("response-text: {}".format(r.json()))
+```
+
+#### python (authenticated)
+```sh
+# get jwt token
+url = "http://127.0.0.1:5001/rest/login"
+data = {"username": "kivanc", "password": "1234"}
+r = requests.post(url, json=data)
+output = r.json()
+token = output['access_token']
+
+# now send through auth_hello
+url = "http://127.0.0.1:5001/auth_hello"
+data = {"key": "value"}
+headers = {'Authorization': 'Bearer {}'.format(token)}
+r = requests.post(url, json=data, headers=headers)
+
 print("status_code: {}".format(r.status_code)
 print("response-text: {}".format(r.json()))
 ```
