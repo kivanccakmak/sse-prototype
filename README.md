@@ -8,7 +8,7 @@ local **client** (dart with eventsource) / **server** (python with flask-sse) im
 ### run http-server
 ```sh
 cd myflask
-python3 app.py
+python3 run.py
 ```
 
 ### run client
