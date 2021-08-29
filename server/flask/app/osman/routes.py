@@ -1,7 +1,10 @@
 #!/bin/python
+import asyncio
+import json
 import os
 from flask import request, jsonify
 from flask_login import login_required, current_user
+from websockets import connect
 
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import decode_token
@@ -27,7 +30,6 @@ def check_access():
     print("token: {}".format(token))
     msg = decode_token(token)
     print(msg)
-    #TODO: now reject regarding to user etc!
 
 @blueprint.route('/auth_hello', methods=['GET', 'POST'])
 @jwt_required()
@@ -43,4 +45,15 @@ def publish_hello():
     data = request.get_json()
     print("here")
     sse.publish(data, type='greeting')
+    return jsonify(msg="message sent"), 200
+
+# pokayoke.me (main server)
+async def hello(uri, data):
+    async with connect(uri) as websocket:
+        await websocket.send(data)
+
+@blueprint.route('/sio_hello', methods=['GET', 'POST'])
+def publish_sio_hello():
+    data = request.get_json()
+    asyncio.run(hello("ws://localhost:8765", json.dumps(data)))
     return jsonify(msg="message sent"), 200
